@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Harsh Kumar — Data Science & ML</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0f12;
+    --bg2: #13161b;
+    --bg3: #1a1e25;
+    --accent: #4f9eff;
+    --accent2: #7dd3a8;
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --border: rgba(255,255,255,0.07);
+    --card: #161921;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(13,15,18,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'DM Mono', monospace; font-size: 0.9rem; color: var(--accent); letter-spacing: 0.05em; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 2rem 4rem;
+    max-width: 900px; margin: 0 auto;
+    position: relative;
+  }
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-tag::before { content: ''; display: inline-block; width: 32px; height: 1px; background: var(--accent); }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent2); }
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 580px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    padding: 0.75rem 1.75rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 0.02em;
+  }
+  .btn-primary { background: var(--accent); color: #0d0f12; border: none; }
+  .btn-primary:hover { background: #70b3ff; transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.25); transform: translateY(-1px); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--accent);
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; max-width: 900px; margin: 0 auto; }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--accent); }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--text);
+    margin-bottom: 3rem;
+    line-height: 1.2;
+  }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { border-color: rgba(79,158,255,0.3); transform: translateY(-2px); }
+  .skill-card-title { font-size: 0.78rem; font-family: 'DM Mono', monospace; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 0.75rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .skill-tag {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.78rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .exp-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.75rem;
+    transition: border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .exp-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+  }
+  .exp-card:hover { border-color: rgba(79,158,255,0.3); }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
+  .exp-role { font-size: 1rem; font-weight: 600; color: var(--text); }
+  .exp-company { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.25rem; }
+  .exp-date { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted); }
+  .exp-bullets { list-style: none; margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .exp-bullets li { font-size: 0.9rem; color: var(--muted); padding-left: 1.25rem; position: relative; line-height: 1.6; }
+  .exp-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent2); font-size: 0.8rem; top: 0.05rem; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 1.25rem; }
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.75rem;
+    display: flex; flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .project-card:hover { border-color: rgba(125,211,168,0.3); transform: translateY(-2px); }
+  .project-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+  .project-name { font-size: 1rem; font-weight: 600; color: var(--text); }
+  .project-link { color: var(--muted); font-size: 0.8rem; text-decoration: none; font-family: 'DM Mono', monospace; transition: color 0.2s; }
+  .project-link:hover { color: var(--accent); }
+  .project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; flex: 1; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .stack-tag {
+    background: rgba(125,211,168,0.08);
+    border: 1px solid rgba(125,211,168,0.15);
+    color: var(--accent2);
+    font-size: 0.72rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-family: 'DM Mono', monospace;
+  }
+  .project-badge {
+    background: rgba(79,158,255,0.1);
+    border: 1px solid rgba(79,158,255,0.2);
+    color: var(--accent);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-family: 'DM Mono', monospace;
+    white-space: nowrap;
+  }
+
+  /* EDUCATION */
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.75rem;
+    display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;
+  }
+  .edu-degree { font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+  .edu-school { font-size: 0.9rem; color: var(--accent); margin-bottom: 0.5rem; }
+  .cgpa-box { text-align: right; }
+  .cgpa-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--accent2); line-height: 1; }
+  .cgpa-label { font-size: 0.72rem; color: var(--muted); font-family: 'DM Mono', monospace; margin-top: 0.25rem; }
+  .cgpa-trend { font-size: 0.72rem; color: var(--accent); font-family: 'DM Mono', monospace; margin-top: 0.2rem; }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+  .contact-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .contact-card:hover { border-color: rgba(79,158,255,0.3); transform: translateY(-2px); }
+  .contact-type { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; }
+  .contact-val { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ANIMATIONS */
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 600px) {
+    .projects-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+    nav { padding: 1rem; }
+    .nav-links { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">HK.dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="about">
+  <div class="hero-tag">Available for internships & opportunities</div>
+  <h1>Harsh Kumar</h1>
+  <p style="font-family:'DM Mono',monospace;font-size:1rem;color:var(--accent2);margin-bottom:1.5rem;margin-top:-0.5rem;font-style:italic;">Building things with data.</p>
+  <p class="hero-desc">
+    B.Tech IT student at MAIT, Delhi. I build data pipelines, ML models, and AI-powered tools — from stock market forecasting systems to RAG-based teaching assistants.
+  </p>
+  <div class="hero-btns">
+    <a href="https://github.com/Harshkm007" class="btn btn-primary" target="_blank">GitHub Profile</a>
+    <a href="https://linkedin.com/in/harsh-kumar-192b65334" class="btn btn-outline" target="_blank">LinkedIn</a>
+    <a href="mailto:harshkm333@gmail.com" class="btn btn-outline">Email Me</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">2</div>
+      <div class="stat-label">Internships completed</div>
+    </div>
+    <div>
+      <div class="stat-num">4+</div>
+      <div class="stat-label">Projects shipped</div>
+    </div>
+    <div>
+      <div class="stat-num">8.4</div>
+      <div class="stat-label">Current semester CGPA</div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section class="fade-in">
+  <div class="section-label">What I work with</div>
+  <div class="section-title">Technical Skills</div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-card-title">Languages</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">C++</span>
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">SQL</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Data & ML</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Pandas</span>
+        <span class="skill-tag">NumPy</span>
+        <span class="skill-tag">Scikit-Learn</span>
+        <span class="skill-tag">Matplotlib</span>
+        <span class="skill-tag">Seaborn</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Visualization & BI</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">Tableau</span>
+        <span class="skill-tag">Excel (Adv.)</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Databases & Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">Oracle DB</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">Jupyter</span>
+        <span class="skill-tag">VS Code</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Core Skills</div>
+      <div class="skill-tags">
+        <span class="skill-tag">EDA</span>
+        <span class="skill-tag">RAG Pipelines</span>
+        <span class="skill-tag">Web Scraping</span>
+        <span class="skill-tag">DSA</span>
+        <span class="skill-tag">Data Cleaning</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="fade-in">
+  <div class="section-label">Where I've worked</div>
+  <div class="section-title">Internship Experience</div>
+  <div class="exp-list">
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Data Science & Analytics Intern</div>
+          <div class="exp-company">Zidio Development</div>
+        </div>
+        <div class="exp-date">Jun 2025 – Jul 2025</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Built a Python stock market analysis tool using Pandas and Matplotlib, processing 5+ years of historical data to identify sector-wise trends and investment signals.</li>
+        <li>Applied time series models achieving ~15% improvement in prediction accuracy over baseline.</li>
+        <li>Streamlined analytical workflows with Jupyter Notebooks, reducing setup time by 40%.</li>
+      </ul>
+    </div>
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Python Development Intern</div>
+          <div class="exp-company">Infotact Solutions</div>
+        </div>
+        <div class="exp-date">Jul 2025 – Aug 2025</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Built a cross-platform automated file organizer sorting 10+ file types by extension, type, and date — cutting manual cleanup time by ~80%.</li>
+        <li>Zero dependencies beyond Python standard library; compatible with Windows, Linux, and macOS.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="fade-in">
+  <div class="section-label">Things I've built</div>
+  <div class="section-title">Projects</div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-name">RAG-Based AI Teaching Assistant</div>
+        <span class="project-badge">Featured</span>
+      </div>
+      <p class="project-desc">End-to-end RAG pipeline that transcribes video lectures using OpenAI Whisper, chunks transcripts with metadata, generates embeddings, and answers student queries with context-aware responses.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Whisper</span>
+        <span class="stack-tag">GPT-4o</span>
+        <span class="stack-tag">FAISS</span>
+        <span class="stack-tag">Pandas</span>
+        <span class="stack-tag">RAG</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-name">Stock Market Analysis Tool</div>
+        <a href="https://github.com/Harshkm007/Stock-Forcasting" class="project-link" target="_blank">github →</a>
+      </div>
+      <p class="project-desc">End-to-end stock analysis dashboard with sector performance visualization, trend detection, and time series forecasting. Delivers actionable portfolio growth insights from real-world financial data.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Pandas</span>
+        <span class="stack-tag">Matplotlib</span>
+        <span class="stack-tag">Jupyter</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-name">Sales & Revenue Analytics Dashboard</div>
+      </div>
+      <p class="project-desc">Interactive dashboard visualizing KPIs: monthly revenue trends, product-wise performance, and regional growth across 2+ years. Reduced data inconsistencies by ~35% via Pandas transformations.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Power BI</span>
+        <span class="stack-tag">Pandas</span>
+        <span class="stack-tag">Excel</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-name">Automated File Organizer</div>
+        <a href="https://github.com/Harshkm007/File-Organizer" class="project-link" target="_blank">github →</a>
+      </div>
+      <p class="project-desc">Cross-platform file management system that categorizes 10+ file types by extension, type, and date. Zero dependencies, fully compatible with Windows, Linux, and macOS.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">os</span>
+        <span class="stack-tag">shutil</span>
+        <span class="stack-tag">datetime</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="fade-in">
+  <div class="section-label">Academic background</div>
+  <div class="section-title">Education</div>
+  <div class="edu-card">
+    <div>
+      <div class="edu-degree">B.Tech in Information Technology</div>
+      <div class="edu-school">Maharaja Agrasen Institute of Technology (MAIT), Delhi</div>
+      <div style="font-size:0.82rem;color:var(--muted);margin-top:0.25rem;font-family:'DM Mono',monospace;">2023 – 2027</div>
+    </div>
+    <div class="cgpa-box">
+      <div class="cgpa-num">8.4</div>
+      <div class="cgpa-label">Current semester CGPA</div>
+      <div class="cgpa-trend">↑ Overall: 7.8 / 10</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="fade-in">
+  <div class="section-label">Get in touch</div>
+  <div class="section-title">Contact</div>
+  <div class="contact-grid">
+    <a href="mailto:harshkm333@gmail.com" class="contact-card">
+      <div class="contact-type">Email</div>
+      <div class="contact-val">harshkm333@gmail.com</div>
+    </a>
+    <a href="tel:+918527237899" class="contact-card">
+      <div class="contact-type">Phone</div>
+      <div class="contact-val">+91-8527237899</div>
+    </a>
+    <a href="https://linkedin.com/in/harsh-kumar-192b65334" class="contact-card" target="_blank">
+      <div class="contact-type">LinkedIn</div>
+      <div class="contact-val">harsh-kumar-192b65334</div>
+    </a>
+    <a href="https://github.com/Harshkm007" class="contact-card" target="_blank">
+      <div class="contact-type">GitHub</div>
+      <div class="contact-val">Harshkm007</div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  built by harsh kumar · harshkm333@gmail.com
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
